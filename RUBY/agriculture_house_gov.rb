@@ -23,7 +23,12 @@ class AgricultureParser
         document = Nokogiri::HTML.parse( doc )
 
         title_node = document.css('.newsie-titler');
-        body_node = document.css('.bodycopy').css("p")
+        bodyp_node = document.css('.bodycopy').css("p")
+        body_node = document.css('.bodycopy')
+        
+        inner_text = body_node.xpath('text()').text
+        inner_text = StringEX.Normalize( inner_text ).strip
+
         topnews_node = document.css('.topnewstext').css("b")
         
         str = StringEX.Normalize( topnews_node.text )
@@ -35,7 +40,7 @@ class AgricultureParser
             result = { title: title_node.text, 
                        date: data_date,
                        location: tokens[0],
-                       article: data_body = body_node.text };
+                       article: data_body = bodyp_node.text + '\n' + inner_text  };
         end
 
         return result;
