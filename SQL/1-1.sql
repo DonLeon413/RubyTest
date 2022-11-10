@@ -1,4 +1,4 @@
-  
+ 
 
 SELECT P.product_name gift_name,
        P.product_img_url, 
